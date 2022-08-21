@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  telegramId Int
+  username   String   @unique()
+  city       String
+  address    String
+  cart       Cart?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt()
+}
+
+model Cart {
+  id           Int             @id @default(autoincrement())
+  total_amount Int
+  user         User            @relation(fields: [userId], references: [id])
+  userId       Int             @unique
+  products     CartOnProduct[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt()
+}
+
+model Product {
+  id          Int             @id @default(autoincrement())
+  name        String
+  description String
+  price       Int
+  color       Color           @default(SPACE_GRAY)
+  carts       CartOnProduct[]
+  storage     Storage         @relation(fields: [storageId], references: [id])
+  storageId   Int             @default(1)
+  memory      Memory          @relation(fields: [memoryId], references: [id])
+  memoryId    Int             @default(1)
+  soft        Soft?           @relation(fields: [softId], references: [id])
+  softId      Int?            @unique
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt()
+}
+
+model CartOnProduct {
+  cart      Cart     @relation(fields: [cartId], references: [id])
+  cartId    Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  @@id([cartId, productId])
+}
+
+model Storage {
+  id        Int       @id @default(autoincrement())
+  volume    String    @unique
+  price     Int
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt()
+}
+
+model Memory {
+  id        Int       @id @default(autoincrement())
+  volume    String    @unique
+  price     Int
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt()
+}
+
+model Soft {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  price     Int
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt()
+}
+
+enum Color {
+  SPACE_GRAY
+  GOLD
+  SILVER
+  MIDNIGHT
+  STARLIGHT
+}
