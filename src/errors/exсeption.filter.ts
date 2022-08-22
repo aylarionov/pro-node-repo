@@ -1,8 +1,8 @@
 import { ILogger } from '../logger/logger.interface';
-import { IExeptionFilter } from './exeption.filter.interface';
+import { IExсeptionFilter } from './exсeption.filter.interface';
 import { BOTError } from './http-error';
 
-export const exeptionFilter = (logger: ILogger): IExeptionFilter => {
+export const exсeptionFilter = (logger: ILogger): IExсeptionFilter => {
 	const errorHandler = (err: Error | BOTError): void => {
 		if (err instanceof BOTError) {
 			logger.error(

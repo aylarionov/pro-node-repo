@@ -6,5 +6,5 @@ export interface IBot {
 
 export interface IBotReturned {
 	start: () => void;
-	launch: () => void;
+	launch: () => Promise<void>;
 }

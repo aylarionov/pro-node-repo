@@ -11,7 +11,7 @@ export const prismaService = (logger: ILogger): IPrismaService => {
 			logger.log('[PrismaService] Успешно подключились к базе');
 		} catch (e) {
 			if (e instanceof Error) {
-				logger.error('[PrismaService] Ошибка подключения к базе данный ' + e.message);
+				throw new Error('[PrismaService] Ошибка подключения к базе данных: ' + e.message);
 			}
 		}
 	};

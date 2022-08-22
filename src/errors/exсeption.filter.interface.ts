@@ -1,5 +1,5 @@
 import { BOTError } from './http-error';
 
-export interface IExeptionFilter {
+export interface IExсeptionFilter {
 	errorHandler: (err: Error | BOTError) => void;
 }
