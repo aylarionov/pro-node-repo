@@ -4,7 +4,7 @@ import { BOTError } from './errors/http-error';
 import { ILogger } from './logger/logger.interface';
 
 interface IAppCreatorReturned {
-	init: () => void;
+	init: () => Promise<void>;
 }
 
 export const appCreator = (logger: ILogger): IAppCreatorReturned => {

@@ -1,6 +1,6 @@
 import { appCreator } from './app';
 import { prismaService } from './database/prisma.service';
-import { exсeptionFilter } from './errors/exсeption.filter';
+import { exceptionFilter } from './errors/exception.filter';
 import { BOTError } from './errors/http-error';
 import { loggerService } from './logger/logger.service';
 
@@ -14,7 +14,7 @@ async function bootstrap(): Promise<void> {
 		logger.log('[Bootstrap] Бот запущен');
 	} catch (e) {
 		if (e instanceof Error || e instanceof BOTError) {
-			exсeptionFilter(logger).errorHandler(e);
+			exceptionFilter(logger).errorHandler(e);
 		}
 	}
 }
